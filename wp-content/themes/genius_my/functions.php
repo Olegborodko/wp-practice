@@ -18,6 +18,19 @@ function generateRandomString($length = 10)
   return $randomString;
 }
 
+function genius_my_body_class($classes)
+{
+  if (is_front_page()){
+    $classes[] = 'main_class';
+  } else {
+    $classes[] = 'main_extra_class';
+  }
+
+  return $classes;
+}
+
+add_filter('body_class', 'genius_my_body_class');
+
 function genius_my_enqueue_scripts()
 {
   echo get_template_directory_uri() . '/assets/css/general.css';
@@ -35,7 +48,8 @@ function genius_my_enqueue_scripts()
 
   // тут можно задавать условия когда грузить скрипт
   // if (is_singular()) {
-    wp_enqueue_script('genius_my_script', get_template_directory_uri() . "/assets/js/script.js?a=" . generateRandomString(), array('jquery'), '1.0', true);
+  // true - вывести в footer
+  wp_enqueue_script('genius_my_script', get_template_directory_uri() . "/assets/js/script.js?a=" . generateRandomString(), array('jquery'), '1.0', true);
   // }
 
   // в wp есть много скриптов которые уже зарегистрированы
@@ -45,6 +59,21 @@ function genius_my_enqueue_scripts()
 }
 
 add_action('wp_enqueue_scripts', 'genius_my_enqueue_scripts');
+
+function genius_my_show_meta()
+{
+  echo "<meta name='author' content='BORODKO'>";
+}
+
+add_action('wp_head', 'genius_my_show_meta');
+
+function genius_my_show_test()
+{
+  echo "Hello";
+}
+
+// 10 приоритет, чем больше тем первее отобразится
+add_action('wp_footer', 'genius_my_show_test', 10);
 
 if (!defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
