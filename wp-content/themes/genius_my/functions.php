@@ -23,7 +23,7 @@ function genius_my_register_menus()
   // добавит в админку новую локацию для меню
   register_nav_menus(array(
     'header_nav' => 'Header navigation my location',
-    'footer_nav' => ''
+    'footer_nav' => 'Footer navigation',
   ));
 }
 
