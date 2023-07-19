@@ -18,9 +18,20 @@ function generateRandomString($length = 10)
   return $randomString;
 }
 
+function genius_my_register_menus()
+{
+  // добавит в админку новую локацию для меню
+  register_nav_menus(array(
+    'header_nav' => 'Header navigation my location',
+    'footer_nav' => ''
+  ));
+}
+
+add_action('after_setup_theme', 'genius_my_register_menus', 0);
+
 function genius_my_body_class($classes)
 {
-  if (is_front_page()){
+  if (is_front_page()) {
     $classes[] = 'main_class';
   } else {
     $classes[] = 'main_extra_class';

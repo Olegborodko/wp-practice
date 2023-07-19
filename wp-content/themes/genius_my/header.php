@@ -30,3 +30,13 @@
 <?php get_template_part('parts/part', 'two')?>
 
 <?php wp_body_open(); ?>
+
+<?php
+  wp_nav_menu(
+    array(
+    'theme_location' => 'header_nav',
+    'menu_class' => 'test',
+    'container' => 'div',
+    )
+  );
+?>
