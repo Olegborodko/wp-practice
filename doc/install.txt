@@ -1,0 +1,142 @@
+install
+https://www.wikihow.com/Install-XAMPP-on-Linux
+
+chmod +x xampp-linux-x64-8.2.4-0-installer.run
+sudo ./xampp-linux-x64-8.2.4-0-installer.run
+
+cd /opt/lampp
+sudo chmod -R 777 htdocs
+дальше создаем папку с любым названием, это и будет новый сайт
+
+phpmyadmin
+http://localhost/phpmyadmin
+
+directory
+cd /opt/lampp/
+
+открыть панель управления
+sudo /opt/lampp/manager-linux-x64.run
+
+видео
+https://www.youtube.com/watch?v=R5CUn5wGQGg
+
+тут начальные файлики
+/opt/lampp/htdocs
+
+// ======================================
+utf8mb4_general_ci
+utf8_general_ci
+
+группа и юзер у меня - daemon
+
+// это под вопросом, проверишь при следующей установки wp
+sudo setfacl -R -m u:daemon:rwx genius
+sudo setfacl -R -d -m u:daemon:rwx genius
+sudo getfacl genius
+
+// меняю сразу юзера и группу для папок wp, что-бы плагины ставились
+sudo chown -R daemon:daemon genius/
+
+// дальше нужно юзера своего (oleg) добавить в группу daemon
+// а daemon добавить в oleg
+sudo usermod -aG daemon oleg
+sudo usermod -aG oleg daemon
+
+// дальше меняем права доступа ко всем папкам и файлам
+sudo chmod -R g+w genius/
+
+// это можно использовать уже после разработки, когда сайт на хостенге
+sudo chmod -R 777 genius/
+sudo find genius/ -type d -exec chmod 755 {} \;
+sudo find genius/ -type f -exec chmod 644 {} \;
+sudo chmod 600 genius/wp-config.php
+
+// еще есть такой способ - добавить в конец файла wp-config.php 
+define('FS_METHOD', 'direct');
+
+стоит на этапе установки wordpress переименовать префикс базы данных
+username и password стоит тоже сразу менять на нормальные,
+что-бы во время переноса сайта на хостинг уже не тратить время на это
+
+что-бы не делать самому тему разработчики используют стартовую тему
+- есть максимально минимальные стратовые темы
+- есть чуть-ли не отдельные фрейморки
+- есть что-то среднее например underscores
+https://underscores.me/
+
+если после установки пустой темы она просит обновиться, значит
+это имя уже занято другой темой
+
+ls -l
+
+в теме javascript, css, html
+php нужно реализовывать в плагинах
+
+пустая тема на wp, для своей верстки
+https://wordpress.org/themes/blankslate/
+
+// ======================================= иерархия шаблонов
+https://codex.wordpress.org/%D0%98%D0%B5%D1%80%D0%B0%D1%80%D1%85%D0%B8%D1%8F_%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BE%D0%B2
+
+child theme для того что-бы при обновлении основной темы изменения наши не терялись
+
+get_template_part() что-бы подгружать части кода
+
+// =======================================
+хук это функция которая позволяет подключаться к другой функции
+
+function genius_my_enqueue_scripts(){
+}
+
+add_action('wp_enqueue_scripts', 'genius_my_enqueue_scripts');
+
+это хук который цепляется к wp_head() или к wp_footer()
+
+// =======================================
+function genius_my_enqueue_scripts()
+{
+  echo get_template_directory_uri() . '/assets/css/general.css';
+
+  // register регистрирует скрипт или стиль
+  // wp_register_script
+  // но не подключает
+  // подключить можно позже где-то в php
+  // шаблоне
+  // либо сразу указівать wp_enqueue_script,
+  // или wp_enqueue_style без wp_register
+  wp_register_style('genius_my_general', get_template_directory_uri() . "/assets/css/general.css?a=".generateRandomString(), array(), '1.0', 'all');
+
+  wp_enqueue_style('genius_my_general');
+
+  wp_enqueue_script('genius_my_script', get_template_directory_uri() . "/assets/js/script.js?a=".generateRandomString(), array('jquery'), '1.0', true);
+}
+
+add_action('wp_enqueue_scripts', 'genius_my_enqueue_scripts');
+
+// ======================================== этот код для комментариев
+if (is_singular() && comments_open() && get_option('thread_comments')) {
+    wp_enqueue_script('comment-reply');
+  }
+  
+// ============== вкл отображение ошибок
+define('WP_DEBUG', true);
+
+// ============== приоритет
+add_action('wp_footer', 'genius_my_show_test', 10);
+
+// ============== правильное добавление класса
+<?php body_class('my_new_class, my2class');
+
+// ============== пример фильтра
+function genius_my_body_class($classes)
+{
+  if (is_front_page()){
+    $classes[] = 'main_class';
+  } else {
+    $classes[] = 'main_extra_class';
+  }
+
+  return $classes;
+}
+
+add_filter('body_class', 'genius_my_body_class');
