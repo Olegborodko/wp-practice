@@ -28,6 +28,8 @@
 
 <?php get_search_form(); ?>
 
+<a href="<?= esc_url(home_url()) ?>">Home</a>
+
 <?php wp_footer(); ?>
 
 </body>
