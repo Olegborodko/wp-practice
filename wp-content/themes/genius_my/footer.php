@@ -24,6 +24,8 @@
   );
 ?>
 
+<?php get_template_part('custom-menu'); ?>
+
 <?php wp_footer(); ?>
 
 </body>

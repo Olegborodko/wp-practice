@@ -18,6 +18,16 @@ function generateRandomString($length = 10)
   return $randomString;
 }
 
+function show_menu_slugs() {
+  $menus = get_terms('nav_menu');
+  echo '<pre>';
+  foreach ($menus as $menu) {
+    echo 'Menu Name: ' . $menu->name . ' | Menu Slug: ' . $menu->slug . '<br>';
+  }
+  echo '</pre>';
+}
+add_action('wp_footer', 'show_menu_slugs');
+
 function genius_my_register_menus()
 {
   // добавит в админку новую локацию для меню
