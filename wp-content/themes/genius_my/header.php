@@ -40,3 +40,16 @@
     )
   );
 ?>
+
+<?php
+$name = esc_html__('Hello', 'genius_my');
+echo $name;
+
+esc_html_e('Hello', 'genius_my');
+
+echo '<br/>'.wp_kses(__('text <b> text </b>', 'genius_my'), array('b' => array()));
+
+echo "<br>";
+$rating = 4;
+printf(esc_html(_n('%s start', '%s stars', $rating, 'genius_my')), $rating);
+?>

@@ -1,0 +1,3 @@
+Loco Translate
+https://wordpress.org/plugins/loco-translate/
+для локализации темы

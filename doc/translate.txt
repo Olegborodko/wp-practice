@@ -1,0 +1,29 @@
+$name = esc_html__('Hello', 'genius_my');
+echo $name;
+
+esc_html_e('Hello', 'genius_my');
+
+// ================
+так можно указать с какой именно папки темы брать файлы
+для перевода
+function my_theme_load_theme_textdomain() {
+    load_theme_textdomain( 'my-theme', get_template_directory() . '/lang' );
+}
+add_action( 'after_setup_theme', 'my_theme_load_theme_textdomain' );
+
+// =================
+плагин
+https://wordpress.org/plugins/loco-translate/
+
+// =================
+$city = 'Odessa';
+$country = 'Ukraine';
+printf(esc_html__('Some text %1$s next text %2$s next ...'), $city, $country);
+
+// =================
+wp_kses(__('text <b> test </b>', 'genius_my'), array('b' => array()));
+
+// =================
+что-бы учитывало множественное число или нет
+$rating = 4;
+printf(esc_html(_n('%s start', '%s stars', $rating, 'genius_my')), $rating);
