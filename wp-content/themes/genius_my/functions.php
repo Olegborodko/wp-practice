@@ -268,3 +268,12 @@ require get_template_directory() . '/inc/customizer.php';
 if (defined('JETPACK__VERSION')) {
   require get_template_directory() . '/inc/jetpack.php';
 }
+
+// вместо создания файла searchform.php
+// можно сделать функцию и поцепить на hook
+// function custom_search($form){
+//   $form = "test";
+
+//   return $form;
+// }
+// add_filter('get_search_form', 'custom_search');

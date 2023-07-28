@@ -26,6 +26,8 @@
 
 <?php get_template_part('custom-menu'); ?>
 
+<?php get_search_form(); ?>
+
 <?php wp_footer(); ?>
 
 </body>
