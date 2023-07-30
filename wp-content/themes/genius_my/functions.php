@@ -18,7 +18,8 @@ function generateRandomString($length = 10)
   return $randomString;
 }
 
-function show_menu_slugs() {
+function show_menu_slugs()
+{
   $menus = get_terms('nav_menu');
   echo '<pre>';
   foreach ($menus as $menu) {
@@ -31,10 +32,12 @@ add_action('wp_footer', 'show_menu_slugs');
 function genius_my_register_menus()
 {
   // добавит в админку новую локацию для меню
-  register_nav_menus(array(
-    'header_nav' => 'Header navigation my location',
-    'footer_nav' => 'Footer navigation',
-  ));
+  register_nav_menus(
+    array(
+      'header_nav' => 'Header navigation my location',
+      'footer_nav' => 'Footer navigation',
+    )
+  );
 }
 
 add_action('after_setup_theme', 'genius_my_register_menus', 0);
@@ -116,6 +119,7 @@ function genius_my_setup()
    * If you're building a theme based on genius_my, use a find and replace
    * to change 'genius_my' to the name of your theme in all the template files.
    */
+  // поддержка многоязычности
   load_theme_textdomain('genius_my', get_template_directory() . '/languages');
 
   // Add default posts and comments RSS feed links to head.
@@ -277,3 +281,57 @@ if (defined('JETPACK__VERSION')) {
 //   return $form;
 // }
 // add_filter('get_search_form', 'custom_search');
+
+function genius_my_register_post_type()
+{
+  $args = array(
+    'label' => esc_html__('Cars','genius_my'),
+    'labels' => array(
+      'menu_name' => esc_html__('Cars','genius_my'),
+      'name'          => __('Cars', 'genius_my'),
+			'singular_name' => __('Car', 'genius_my'),
+    ),
+
+    //тут так-же указана поддержка post-formats
+    'supports' => array('title', 'editor', 'author', 'thumbnail', 'post-formats'),
+    'public' => true, //показывать или спрятанный post type
+    
+    'menu_icon' => 'dashicons-airplane',
+
+    //переделать пермалинку на https://$домен/genius/cars
+    'rewrite' => array('slug' => 'cars'),
+
+    //активировать gutenberg редактор для car
+    'show_in_rest' => true,
+
+    'has_archive' => true,
+  );
+  register_post_type('car', $args);
+}
+
+add_action('init', 'genius_my_register_post_type');
+
+// так добавить поддержку post-formats в page
+// add_post_type_support( 'page', 'post-formats' );
+
+add_action( 'after_setup_theme', 'genius_my_posts_formats', 11 );
+function genius_my_posts_formats(){
+ add_theme_support( 'post-formats', array(
+    'aside',
+    'audio',
+    'chat',
+    'gallery',
+    'image',
+    'link',
+    'quote',
+    'status',
+    'video',
+    ) );
+}
+
+// после переключения темы обновить пермалинки для кастомного поста
+function genius_my_rewrite_rules(){
+  genius_my_register_post_type();
+  flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'genius_my_rewrite_rules');

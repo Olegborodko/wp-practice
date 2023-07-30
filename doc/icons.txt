@@ -1,0 +1,2 @@
+иконки уже подключены в wp по умолчанию
+https://developer.wordpress.org/resource/dashicons/#editor-textcolor

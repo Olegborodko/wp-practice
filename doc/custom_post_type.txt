@@ -1,0 +1,78 @@
+posts have post type = post
+pages post type = page
+
+#### в functions.php пишем код
+function genius_my_register_post_type()
+{
+  $args = array(
+    'label' => esc_html__('Cars','genius_my'),
+    'labels' => array(
+      'menu_name' => esc_html__('Cars','genius_my'),
+      'name'          => __('Cars', 'genius_my'),
+			'singular_name' => __('Car', 'genius_my'),
+    ),
+
+    //тут так-же указана поддержка post-formats
+    'supports' => array('title', 'editor', 'author', 'thumbnail', 'post-formats'),
+    'public' => true, //показывать или спрятанный post type
+    
+    'menu_icon' => 'dashicons-airplane',
+
+    //переделать пермалинку на https://$домен/genius/cars
+    'rewrite' => array('slug' => 'cars'),
+
+    //активировать gutenberg редактор для car
+    'show_in_rest' => true,
+
+    //без этого параметра не будет отображаться категория
+    //и работать линка
+    'has_archive' => true,
+  );
+  register_post_type('car', $args);
+}
+
+add_action('init', 'genius_my_register_post_type');
+
+#### вообще это плохая практика создавать custom post type
+в functions.php, и для этого нужно создавать отдельный плагин,
+либо использовать плагины которые уже это делают
+
+Потому-что при переключении темы ui в админке,
+для этого поста, не будет видно
+
+#### при создании нового post type нужно обновить permalinks
+потому-что wp не инициализирует сразу новый пост в базе данных
+и не будет доступа к ссылке
+https://localhost/genius/car
+
+заходим в Settings => Permalinks => Permalink structure выбираем
+Post name и Save Changes
+
+при любом изменении нужно снова обновлять permalinks
+
+#### если новый пост называется car то файл для него будет
+archive-car.php
+
+#### добавить форматы в пост
+add_action( 'after_setup_theme', 'genius_my_posts_formats', 11 );
+function genius_my_posts_formats(){
+ add_theme_support( 'post-formats', array(
+    'aside',
+    'audio',
+    'chat',
+    'gallery',
+    'image',
+    'link',
+    'quote',
+    'status',
+    'video',
+    ) );
+}
+
+#### так можно автоматически обновить custom post после смены темы
+// после переключения темы обновить пермалинки для кастомного поста
+function genius_my_rewrite_rules(){
+  genius_my_register_post_type();
+  flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'genius_my_rewrite_rules');

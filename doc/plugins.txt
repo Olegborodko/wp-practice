@@ -1,3 +1,6 @@
 Loco Translate
 https://wordpress.org/plugins/loco-translate/
 для локализации темы
+
+Custom Post Type UI
+https://wordpress.org/plugins/custom-post-type-ui/
