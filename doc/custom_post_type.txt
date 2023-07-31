@@ -76,3 +76,6 @@ function genius_my_rewrite_rules(){
   flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'genius_my_rewrite_rules');
+
+#### single.php шаблон который применяется для постов
+single-car.php для нашего post type - car
