@@ -282,20 +282,54 @@ if (defined('JETPACK__VERSION')) {
 // }
 // add_filter('get_search_form', 'custom_search');
 
+function genius_my_register_taxonomy()
+{
+  $args = array(
+    'hierarchical' => false,
+    'labels' => array(
+      'name' => _x('Brands', 'taxonomy general name', 'genius_my'),
+      'singular_name' => _x('Brand', 'taxonomy singular name', 'genius_my'),
+      'search_items' => __('Search Brand', 'genius_my'),
+      'all_items' => __('All Brands', 'genius_my'),
+      'parent_item' => __('Parent Brand', 'genius_my'),
+      'parent_item_colon' => __('Parent Brand:', 'genius_my'),
+      'edit_item' => __('Edit Brand', 'genius_my'),
+      'update_item' => __('Update Brand', 'genius_my'),
+      'add_new_item' => __('Add New Brand', 'genius_my'),
+      'new_item_name' => __('New Brand Name', 'genius_my'),
+      'menu_name' => __('Brand', 'genius_my'),
+    ),
+    'show_ui' => true,
+    'rewrite' => array('slug' => 'brands'),
+    'query_var' => true,
+    'show_in_rest' => true,
+
+    #в админке будет добавлено поле которое отображает эту taxonomy
+    'show_admin_column' => true,
+
+    'has_archive' => true,
+  );
+  if (!taxonomy_exists('brand')) {
+    register_taxonomy('brand', array('car'), $args);
+  }
+}
+add_action('init', 'genius_my_register_taxonomy');
+
 function genius_my_register_post_type()
 {
   $args = array(
-    'label' => esc_html__('Cars','genius_my'),
+    'label' => esc_html__('Cars', 'genius_my'),
     'labels' => array(
-      'menu_name' => esc_html__('Cars','genius_my'),
-      'name'          => __('Cars', 'genius_my'),
-			'singular_name' => __('Car', 'genius_my'),
+      'menu_name' => esc_html__('Cars', 'genius_my'),
+      'name' => __('Cars', 'genius_my'),
+      'singular_name' => __('Car', 'genius_my'),
     ),
 
     //тут так-же указана поддержка post-formats
     'supports' => array('title', 'editor', 'author', 'thumbnail', 'post-formats'),
-    'public' => true, //показывать или спрятанный post type
-    
+    'public' => true,
+    //показывать или спрятанный post type
+
     'menu_icon' => 'dashicons-airplane',
 
     //переделать пермалинку на https://$домен/genius/cars
@@ -314,23 +348,28 @@ add_action('init', 'genius_my_register_post_type');
 // так добавить поддержку post-formats в page
 // add_post_type_support( 'page', 'post-formats' );
 
-add_action( 'after_setup_theme', 'genius_my_posts_formats', 11 );
-function genius_my_posts_formats(){
- add_theme_support( 'post-formats', array(
-    'aside',
-    'audio',
-    'chat',
-    'gallery',
-    'image',
-    'link',
-    'quote',
-    'status',
-    'video',
-    ) );
+add_action('after_setup_theme', 'genius_my_posts_formats', 11);
+function genius_my_posts_formats()
+{
+  add_theme_support(
+    'post-formats',
+    array(
+      'aside',
+      'audio',
+      'chat',
+      'gallery',
+      'image',
+      'link',
+      'quote',
+      'status',
+      'video',
+    )
+  );
 }
 
 // после переключения темы обновить пермалинки для кастомного поста
-function genius_my_rewrite_rules(){
+function genius_my_rewrite_rules()
+{
   genius_my_register_post_type();
   flush_rewrite_rules();
 }

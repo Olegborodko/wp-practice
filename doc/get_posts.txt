@@ -15,9 +15,15 @@ if (have_posts()) {
 if (have_posts()) {
   while (have_posts()) {
     the_post();
-    echo "ID=> ".get_the_ID();
+    echo "ID=> " . get_the_ID();
     echo "<br>";
-    echo "Title=> ".get_the_title();
+    echo "Title=> " . get_the_title();
+    echo "<br>";
+    ?>
+    <a href="<?= get_the_permalink() ?>">
+      Read More
+    </a>
+    <?php
     echo "<br>";
     echo "============";
     echo "<br>";

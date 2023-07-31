@@ -52,4 +52,11 @@ echo '<br/>'.wp_kses(__('text <b> text </b>', 'genius_my'), array('b' => array()
 echo "<br>";
 $rating = 4;
 printf(esc_html(_n('%s start', '%s stars', $rating, 'genius_my')), $rating);
+
+if (is_tax()) {
+  echo '<br/>';
+  echo "we are on taxonomy";
+}
+echo '<br/>';
+echo '<br/>';
 ?>

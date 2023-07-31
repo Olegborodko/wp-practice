@@ -1,0 +1,75 @@
+####
+у posts есть categories и tags это taxonomy
+
+taxonomy нужно создавать перед custom post type
+
+term - это категории которые мы создали
+
+####
+function genius_my_register_taxonomy()
+{
+  $args = array(
+    'hierarchical' => false,
+    'labels' => array(
+      'name' => _x('Brands', 'taxonomy general name', 'genius_my'),
+      'singular_name' => _x('Brand', 'taxonomy singular name', 'genius_my'),
+      'search_items' => __('Search Brand', 'genius_my'),
+      'all_items' => __('All Brands', 'genius_my'),
+      'parent_item' => __('Parent Brand', 'genius_my'),
+      'parent_item_colon' => __('Parent Brand:', 'genius_my'),
+      'edit_item' => __('Edit Brand', 'genius_my'),
+      'update_item' => __('Update Brand', 'genius_my'),
+      'add_new_item' => __('Add New Brand', 'genius_my'),
+      'new_item_name' => __('New Brand Name', 'genius_my'),
+      'menu_name' => __('Brand', 'genius_my'),
+    ),
+    'show_ui' => true,
+    'rewrite' => array('slug' => 'brands'),
+    'query_var' => true,
+    'show_in_rest' => true,
+
+    #в админке будет добавлено поле которое отображает эту taxonomy
+    'show_admin_column' => true,
+
+    'has_archive' => true,
+  );
+
+  if (!taxonomy_exists('brand')){
+    register_taxonomy('brand', array('car'), $args);
+  }
+}
+add_action('init', 'genius_my_register_taxonomy');
+
+####
+по файлам который будет раньше применяться к taxonomy
+index.php => archive.php => taxonomy.php => taxonomy-{#brand}.php
+
+ссылка на этот файл такая будет
+https://localhost/{sitename}/brands/{category}/
+https://localhost/genius/brands/bmw/
+
+#### что-бы сделать шаблон для конкретного term нужно
+создать файл
+taxonomy-{$category}-{$term}
+taxonomy-brand-bmw.php
+
+но тут нужно быть осторожным потому-что все полетит
+если юзер удалит такую категорию
+
+#### 
+в header.php можно проверять на taxonomy мы сейчас или нет
+if (is_tax()) {
+  echo "we are on taxonomy";
+}
+
+if (is_tax('brand')) {
+  echo "we are on taxonomy brand";
+}
+
+if (is_tax('brand', 'bmw')) {
+  echo "we are on taxonomy brand and term = bmw";
+}
+
+if (is_tax('brand', array('bmw', 'tayota')) {
+  echo "we are on taxonomy brand and term = bmw or tayota";
+}
