@@ -1,0 +1,39 @@
+####
+регистрируется в functions.php
+function genius_my_new_sidebar()
+{
+  register_sidebar(
+    array(
+      'name' => esc_html__('Car Pages Sidebar', 'genius_my'),
+      'id' => 'sidebar-car',
+      'description' => esc_html__('Appear as a Sidebar on a Car Pages', 'genius_my'),
+      'before_widget' => '<section id="%1$s" class="widget %2$s">',
+      'after_widget' => '</section>',
+      'before_title' => '<h2 class="widget-title">',
+      'after_title' => '</h2>',
+    )
+  );
+}
+add_action('widgets_init', 'genius_my_new_sidebar');
+
+выводится в sidebar.php
+
+get_sidebar() - подключить файл sidebar.php
+
+что-бы подключить свой sidebar создаем файл с нашим именем
+sidebar-car.php
+<?php
+if (!is_active_sidebar('sidebar-car')) {
+  return;
+}
+?>
+<?php dynamic_sidebar('sidebar-car'); ?>
+
+подключаем
+get_sidebar('car'); 
+
+если нужно вывести например в single.php sidebar
+только если конкретный post type
+if (get_post_type() == 'car') {
+  get_sidebar('car');
+}

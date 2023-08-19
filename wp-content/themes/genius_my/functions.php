@@ -374,3 +374,19 @@ function genius_my_rewrite_rules()
   flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'genius_my_rewrite_rules');
+
+function genius_my_new_sidebar()
+{
+  register_sidebar(
+    array(
+      'name' => esc_html__('Car Pages Sidebar', 'genius_my'),
+      'id' => 'sidebar-car',
+      'description' => esc_html__('Appear as a Sidebar on a Car Pages', 'genius_my'),
+      'before_widget' => '<section id="%1$s" class="widget %2$s">',
+      'after_widget' => '</section>',
+      'before_title' => '<h2 class="widget-title">',
+      'after_title' => '</h2>',
+    )
+  );
+}
+add_action('widgets_init', 'genius_my_new_sidebar');

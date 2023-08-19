@@ -18,3 +18,6 @@ while ($wp_query->have_posts()):
   </p>
 <?php endwhile;
 ?>
+
+<?php
+get_sidebar('car');
