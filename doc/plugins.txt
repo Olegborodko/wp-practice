@@ -4,3 +4,10 @@ https://wordpress.org/plugins/loco-translate/
 
 Custom Post Type UI
 https://wordpress.org/plugins/custom-post-type-ui/
+
+Starter Templates
+Плагин в котором куча бесплатных шаблонов,
+под конкретный builder
+
+Elementor
+Билдер, самый попюлярный
