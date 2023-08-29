@@ -1,0 +1,11 @@
+MINIMUM_ELEMENTOR_VERSION = '3.15.3'; 
+//указывается текущая версия elementor, в wp-admin/ можно посмотреть
+
+MINIMUM_PHP_VERSION = '8.2.4';
+//версия php на которой работаем
+
+public function register_widgets
+//тут будем подключать наши виджеты
+
+public function register_controls
+//тут controls добавлять

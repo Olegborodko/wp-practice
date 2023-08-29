@@ -21,5 +21,13 @@ xmlrpc.php
 
 /wp-content/themes/*
 !/wp-content/themes/genius_my/
+!/wp-content/themes/elementor/
 
-/wp-content/plugins
+# /wp-content/plugins/*
+/wp-content/plugins/astra-sites
+/wp-content/plugins/child-theme-configurator
+/wp-content/plugins/classic-editor
+/wp-content/plugins/elementor
+/wp-content/plugins/woo-cart-abandonment-recovery
+/wp-content/plugins/wpforms-lite
+!/wp-content/plugins/elementor-foundation/*
