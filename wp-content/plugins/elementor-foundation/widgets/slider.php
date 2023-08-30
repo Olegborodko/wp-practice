@@ -1,4 +1,7 @@
 <?php
+
+namespace Elementor_Foundation;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -10,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Elementor_oEmbed_Widget extends \Elementor\Widget_Base {
+class Elementor_Slider_Widget extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -22,7 +25,7 @@ class Elementor_oEmbed_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'oembed';
+		return 'slider';
 	}
 
 	/**
@@ -35,7 +38,7 @@ class Elementor_oEmbed_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'oEmbed', 'elementor-oembed-widget' );
+		return esc_html__( 'Slider', 'elementor-foundation' );
 	}
 
 	/**
@@ -48,7 +51,7 @@ class Elementor_oEmbed_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'eicon-code';
+		return 'fa fa-window-restore';
 	}
 
 	/**
@@ -87,7 +90,7 @@ class Elementor_oEmbed_Widget extends \Elementor\Widget_Base {
 	 * @return array Widget keywords.
 	 */
 	public function get_keywords() {
-		return [ 'oembed', 'url', 'link' ];
+		return [ 'slider', 'url', 'link' ];
 	}
 
 	/**
@@ -103,7 +106,7 @@ class Elementor_oEmbed_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => esc_html__( 'Content', 'elementor-oembed-widget' ),
+				'label' => esc_html__( 'Content', 'elementor-foundation' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -111,10 +114,10 @@ class Elementor_oEmbed_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'url',
 			[
-				'label' => esc_html__( 'URL to embed', 'elementor-oembed-widget' ),
+				'label' => esc_html__( 'URL to embed', 'elementor-foundation' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
 				'input_type' => 'url',
-				'placeholder' => esc_html__( 'https://your-link.com', 'elementor-oembed-widget' ),
+				'placeholder' => esc_html__( 'https://your-link.com', 'elementor-foundation' ),
 			]
 		);
 
@@ -135,9 +138,10 @@ class Elementor_oEmbed_Widget extends \Elementor\Widget_Base {
 		$settings = $this->get_settings_for_display();
 		$html = wp_oembed_get( $settings['url'] );
 
-		echo '<div class="oembed-elementor-widget">';
-		echo ( $html ) ? $html : $settings['url'];
-		echo '</div>';
+    echo $settings['url'];
+		// echo '<div class="elementor-foundation-slider">';
+		// echo ( $html ) ? $html : $settings['url'];
+		// echo '</div>';
 
 	}
 
