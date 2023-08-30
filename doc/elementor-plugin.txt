@@ -9,3 +9,5 @@ public function register_widgets
 
 public function register_controls
 //тут controls добавлять
+
+//========= widget
