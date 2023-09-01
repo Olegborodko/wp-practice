@@ -81,6 +81,7 @@ final class Plugin {
 
 		if ( $this->is_compatible() ) {
 			add_action( 'elementor/init', [ $this, 'init' ] );
+      add_action( 'elementor/elements/categories_registered', [ $this, 'add_elementor_widget_categories'] );
 		}
 
 	}
@@ -199,11 +200,24 @@ final class Plugin {
 	 * @access public
 	 */
 	public function init() {
-
 		add_action( 'elementor/widgets/register', [ $this, 'register_widgets' ] );
 		add_action( 'elementor/controls/register', [ $this, 'register_controls' ] );
 
+  // add_action( 'elementor/elements/categories_registered', 'add_elementor_widget_categories' );
 	}
+
+        // Add custom category
+        public function add_elementor_widget_categories( $elements_manager ) {
+
+          $elements_manager->add_category(
+            'first',
+            [
+              'title' => esc_html__( 'Our category', 'elementor-foundation' ),
+              'icon' => 'fa fa-plug',
+            ]
+          );
+        
+        }
 
 	/**
 	 * Register Widgets
