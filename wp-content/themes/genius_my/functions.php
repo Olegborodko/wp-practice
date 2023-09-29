@@ -390,3 +390,14 @@ function genius_my_new_sidebar()
   );
 }
 add_action('widgets_init', 'genius_my_new_sidebar');
+
+echo "<br>";
+echo "<br>";
+echo "<br>";
+
+require_once(get_template_directory() . '/inc/custom-widget.php');
+function cw_load_widget()
+{
+     register_widget('mycustom_widget');
+}
+add_action('widgets_init', 'cw_load_widget');

@@ -1,0 +1,8 @@
+код добавлен в комментарии, если есть проблемы на вкладке Widgets,
+тоесть сыплится что-то типа
+ The "nav_menu" block was affected by errors and may not function properly. Check the developer tools for more details.
+
+одно из решений установить 
+https://wordpress.org/plugins/classic-widgets/
+
+еще одно из решений деактивировать и активировать все плагины
