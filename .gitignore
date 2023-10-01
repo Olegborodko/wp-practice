@@ -31,3 +31,4 @@ xmlrpc.php
 /wp-content/plugins/woo-cart-abandonment-recovery
 /wp-content/plugins/wpforms-lite
 !/wp-content/plugins/elementor-foundation/*
+/wp-content/plugins/classic-widgets

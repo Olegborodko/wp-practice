@@ -312,6 +312,37 @@ function genius_my_register_taxonomy()
   if (!taxonomy_exists('brand')) {
     register_taxonomy('brand', array('car'), $args);
   }
+
+  // ======================
+
+  $args = array(
+    'hierarchical' => false,
+    'labels' => array(
+      'name' => _x('Manufactures', 'taxonomy general name', 'genius_my'),
+      'singular_name' => _x('Manufacture', 'taxonomy singular name', 'genius_my'),
+      'search_items' => __('Search manufacture', 'genius_my'),
+      'all_items' => __('All manufactures', 'genius_my'),
+      'parent_item' => __('Parent manufacture', 'genius_my'),
+      'parent_item_colon' => __('Parent manufacture:', 'genius_my'),
+      'edit_item' => __('Edit manufacture', 'genius_my'),
+      'update_item' => __('Update manufacture', 'genius_my'),
+      'add_new_item' => __('Add New manufacture', 'genius_my'),
+      'new_item_name' => __('New manufacture Name', 'genius_my'),
+      'menu_name' => __('Manufacture', 'genius_my'),
+    ),
+    'show_ui' => true,
+    'rewrite' => array('slug' => 'manufactures'),
+    'query_var' => true,
+    'show_in_rest' => true,
+
+    #в админке будет добавлено поле которое отображает эту taxonomy
+    'show_admin_column' => true,
+
+    'has_archive' => true,
+  );
+  if (!taxonomy_exists('manufactures')) {
+    register_taxonomy('manufactures', array('car'), $args);
+  }
 }
 add_action('init', 'genius_my_register_taxonomy');
 

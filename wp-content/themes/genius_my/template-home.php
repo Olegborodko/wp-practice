@@ -17,6 +17,7 @@ while ($wp_query->have_posts()):
     <?php the_content(); ?>
   </p>
 <?php endwhile;
+wp_reset_postdata(); //!
 ?>
 
 <?php
