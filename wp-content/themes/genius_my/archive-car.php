@@ -26,4 +26,8 @@ if (have_posts()) {
     echo "============";
     echo "<br>";
   }
+
+  echo "<br/>";
+  echo "<br/>";
+  echo paginate_links();
 }
