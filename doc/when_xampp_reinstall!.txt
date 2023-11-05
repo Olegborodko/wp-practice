@@ -1,0 +1,4 @@
+- обязательно устанавливай новый xampp в другую папку
+- всех баз данных делай бекапы, потому-что они потом могут не работать
+
+https://dba.stackexchange.com/questions/16875/restore-table-from-frm-and-ibd-file
