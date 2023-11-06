@@ -22,6 +22,7 @@ xmlrpc.php
 /wp-content/themes/*
 !/wp-content/themes/genius_my/
 !/wp-content/themes/elementor/
+!/wp-content/themes/genius_my-child/
 
 # /wp-content/plugins/*
 /wp-content/plugins/astra-sites
