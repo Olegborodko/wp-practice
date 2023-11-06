@@ -1,0 +1,23 @@
+Создаем свои размеры картинок, после загрузки их в media library
+
+в теме должна быть
+add_theme_support( 'post-thumbnails' );
+
+add_image_size('image-name',240, 240, true);
+
+// если уже нужно нарезать картинки которые загружены в media library тогда
+можно использовать плагин regenerate thumbnails
+
+//можно переопределить имеющиеся размеры thumb, thumbnail, medium, large, post-thumbnail
+//в этом примере перезаписывается thumbnail который 150 на 150
+//точно так-же можно переписать и др medium_size_w например
+update_option('thumbnail_size_w', 170);
+update_option('thumbnail_size_h', 170);
+update_option('thumbnail_crop', 1);
+
+//функции для работы с thumbnail
+has_post_thumbnail() //проверяет есть ли в посте thumbnail картинка
+the_post_thumbnail('medium') //выводит картинку с заданным параметром размера
+get_post_thumbnail_id() //
+get_the_post_thumbnail() //вывести thumbnail когда есть id поста
+set_post_thumbnail_size() //это тоже-самое что и update_option

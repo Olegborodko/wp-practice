@@ -15,3 +15,8 @@ function enqueue_child_styles1()
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_child_styles1');
+
+add_image_size('image-name',240, 240, true);
+//нельзя называть size - thumb, thumbnail, medium, large, post-thumbnail
+//название, ширина, высота, и если стоит false то высоту wp будет делать пропорциональную,
+//если true то обрежит
