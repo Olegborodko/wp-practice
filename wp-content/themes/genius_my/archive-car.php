@@ -36,14 +36,5 @@ if (have_posts()) {
 
   echo "<br/>";
   echo "<br/>";
-  echo paginate_links(
-    array(
-      'base' => get_pagenum_link(1) . '%_%',
-      'format' => '/page/%#%',
-      'current' => max(1, get_query_var('paged')),
-      'total' => $cars->max_num_pages,
-      'prev_text' => __('« prev'),
-      'next_text' => __('next »'),
-    )
-  );
+  echo paginate_my($cars);
 }

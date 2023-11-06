@@ -432,3 +432,18 @@ function cw_load_widget()
      register_widget('mycustom_widget');
 }
 add_action('widgets_init', 'cw_load_widget');
+
+
+function paginate_my($query){
+  echo paginate_links(
+    array(
+      'base' => get_pagenum_link(1) . '%_%',
+      'format' => '/page/%#%',
+      'current' => max(1, get_query_var('paged')),
+      'total' => $query->max_num_pages,
+      'prev_text' => __('« prev'),
+      'next_text' => __('next »'),
+      'type' => 'list', // array, list, ets
+    )
+  );
+}

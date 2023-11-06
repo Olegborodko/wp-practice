@@ -1,0 +1,6 @@
+для своей кастомной пагинации
+https://developer.wordpress.org/reference/functions/paginate_links/
+
+похоже в старой версии на статических страницах использовалось page
+вместо paged
+'current' => max(1, get_query_var('paged')), //page
